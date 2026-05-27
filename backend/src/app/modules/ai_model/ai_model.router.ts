@@ -3,13 +3,15 @@ import { AiModelController } from "./ai_model.controller";
 import validateRequest from "../../middleware/validate.request";
 import { AIModelValidator } from "./ai_model.validation";
 import checkRequestLimit from "../../middleware/check.request.limit";
+import auth from "../../middleware/auth.middleware"; 
 const router = express.Router();
 
 // Generate Model
 router.post(
   "/generate-model",
+  auth(),                                        // ← NEW
   validateRequest(AIModelValidator.aiModel),
-  checkRequestLimit(),
+  checkRequestLimit(),  
   AiModelController.aiModelGenerate
 );
 
@@ -20,9 +22,10 @@ router.post(
   AiModelController.aiFreeModelGenerate
 );
 
-// Generate Alternate Endings
+// Generate Alternate Endings - PROTECTED only for authenticated users
 router.post(
   "/generate-alternate-endings",
+  auth(),                          
   validateRequest(AIModelValidator.aiAlternateEndings),
   checkRequestLimit(),
   AiModelController.aiModelAlternateEndings

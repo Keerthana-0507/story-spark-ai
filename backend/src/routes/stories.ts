@@ -2,6 +2,7 @@ import express from "express";
 import { z } from "zod";
 import validateRequest from "../app/middleware/validate.request";
 import { StoryBranchingController } from "../controllers/storyBranchingController";
+import auth from "../app/middleware/auth.middleware"; 
 
 const router = express.Router();
 
@@ -15,6 +16,7 @@ const branchingStorySchema = z.object({
 
 router.post(
   "/branching",
+  auth(),
   validateRequest(branchingStorySchema),
   StoryBranchingController.createBranchingStory
 );

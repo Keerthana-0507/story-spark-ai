@@ -3,6 +3,9 @@ import WritingAssistantComponent from "./components/writing-assistant/writing_as
 import CollabHome from "./components/collab/CollabHome";
 import CollabRoom from "./components/collab/CollabRoom";
 import AnalyticsDashboard from "./components/analytics/AnalyticsDashboard";
+import StoriesComponent from "./components/stories/stories.component";
+import SimpleProtectedRoute from './components/ProtectedRoute'; 
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -50,7 +53,6 @@ import MagicCursorComponent from "./components/magic-cursor/magic_cursor.compone
 import ContributorsComponent from "./components/footer/contributors";
 import BranchingStory from "./components/stories/BranchingStory";
 import ReportBug from "./components/report-bug/ReportBug";
-import StoriesComponent from "./components/stories/stories.component";
 import AnalyticsPage from "./components/dashboard/analytics/analytics.page";
 
 // =========================================================================
@@ -95,8 +97,6 @@ const router = createBrowserRouter([
       { index: true, element: <><HeroSectionComponent /><HomeComponent /></> },
       { path: "templates", element: <TemplatesComponent /> },
       { path: "writing-assistant", element: <WritingAssistantComponent /> },
-      { path: "story-inspiration", element: <StoryInspirationWrapper /> },
-      { path: "stories", element: <StoriesComponent /> },
       { path: "login", element: <LoginComponent /> },
       { path: "signup", element: <SignUpComponent /> },
       { path: "forgot-password", element: <ForgotPasswordComponent /> },
@@ -112,18 +112,22 @@ const router = createBrowserRouter([
       { path: "help-center", element: <HelpCenterComponent /> },
       { path: "guidelines", element: <GuidelinesComponent /> },
       { path: "contributors", element: <ContributorsComponent /> },
-      { path: "branching-story", element: <BranchingStory /> },
       { path: "report-bug", element: <ReportBug /> },
 
       // Protected Sub-Tree running under the RootLayout context
       {
         element: <ProtectedRoute allowedRoles={ALL_ROLES} />,
         children: [
+          // Existing protected routes
           { path: "explore", element: <ExploreComponent /> },
           { path: "bookmarks", element: <BookmarksComponent /> },
           { path: "community", element: <CommunityComponent /> },
           { path: "resources", element: <ResourcesListComponent /> },
           { path: "resources/:resourceName", element: <ResourceDetailComponent /> },
+
+          // 🆕 NEW: Story generation protected routes
+          {path: "stories", element: ( <SimpleProtectedRoute> <StoriesComponent /></SimpleProtectedRoute>),},
+          { path: "branching-story", element: <BranchingStory /> },
         ],
       },
       { path: "*", element: <NotFoundComponent /> },
