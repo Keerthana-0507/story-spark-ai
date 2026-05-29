@@ -5,20 +5,12 @@ import StoryInspirationWrapper from "./components/StoryInspirationWrapper";
 import WritingAssistantComponent from "./components/writing-assistant/writing_assistant.component";
 import CollabHome from "./components/collab/CollabHome";
 import CollabRoom from "./components/collab/CollabRoom";
-import StoriesComponent from "./components/stories/stories.component";
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
-import ScrollToTop from "./components/ScrollToTop";
 
 import HeroSectionComponent from "./components/hero/hero_section.component";
 import HomeComponent from "./components/home/home.component";
 import LoginComponent from "./components/login/login.component";
 import SignUpComponent from "./components/signup/signup.component";
+import ForgotPasswordComponent from "./components/login/forgot_password.component";
 import DashboardComponent from "./components/dashboard/dashboard.component";
 import RootLayout from "./components/layout/root_layout.component";
 import DashboardLayout from "./components/dashboard/dashboard_layout.component";
@@ -89,6 +81,7 @@ const router = createBrowserRouter([
       { path: "story-workspace", element: <StoryWorkspace /> },
       { path: "login", element: <LoginComponent /> },
       { path: "signup", element: <SignUpComponent /> },
+      { path: "forgot-password", element: <ForgotPasswordComponent /> },
       { path: "pricing", element: <PricingComponent /> },
       { path: "post/:id", element: <PostDetailsComponent /> },
       { path: "help", element: <HelpCenterComponent /> },
